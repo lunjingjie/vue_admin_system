@@ -1,0 +1,53 @@
+{
+  "name": "vue-cli3-demo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4",
+    "axios": "^0.18.0",
+    "core-js": "^2.6.5",
+    "dayjs": "^1.8.14",
+    "echarts": "^4.0.2",
+    "element-ui": "^2.8.2",
+    "leaflet": "^1.5.1",
+    "leaflet-draw": "^1.0.4",
+    "leaflet-heatmap": "^1.0.0",
+    "leaflet-polylinedecorator": "^1.6.0",
+    "register-service-worker": "^1.6.2",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.3",
+    "vuetify": "^2.1.0",
+    "@mdi/font": "^3.6.95",
+    "@mdi/svg": "^3.9.97",
+    "roboto-fontface": "*",
+    "material-design-icons-iconfont": "^3.0.3",
+    "mdi": "^2.0.46",
+    "vuex": "^3.0.1",
+    "vuex-pathify": "^1.2.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.6.0",
+    "@vue/cli-plugin-eslint": "^3.6.0",
+    "@vue/cli-plugin-pwa": "^3.6.0",
+    "@vue/cli-plugin-unit-mocha": "^3.6.0",
+    "@vue/cli-service": "^3.6.0",
+    "@vue/eslint-config-airbnb": "^4.0.0",
+    "@vue/test-utils": "1.0.0-beta.29",
+    "babel-eslint": "^10.0.1",
+    "chai": "^4.1.2",
+    "deepmerge": "^4.2.2",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "fibers": "^4.0.2",
+    "node-sass": "^4.9.0",
+    "sass": "^1.26.2",
+    "sass-loader": "^7.3.1",
+    "vue-template-compiler": "^2.5.21"
+  }
+}
