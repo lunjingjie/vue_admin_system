@@ -1,6 +1,5 @@
 import Vue from 'vue';
-// import ElementUI from 'element-ui';
-// import 'element-ui/lib/theme-chalk/index.css';
+
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 
@@ -13,11 +12,9 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import './registerServiceWorker';
-// import vuetify from './plugins/vuetify';
 
 // 导入过滤器
 import '@/common/filters';
-
 // 页面级别权限控制
 import './permission';
 

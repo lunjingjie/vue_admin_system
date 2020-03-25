@@ -1,9 +1,6 @@
 <template>
   <div id="app">
     <web-side-nav v-if="sideNav"></web-side-nav>
-<!--    <web-layout :style="{ 'padding-left': sideNav ? '0px' : ($route.name === 'buildingResume' || $route.name === 'Login' ? '0px' : '10px'),-->
-<!--    'padding-right': $route.name === 'buildingResume' || $route.name === 'Login' ? '0px' : '10px',-->
-<!--    'padding-top': $route.name === 'buildingResume' || $route.name === 'Login' ? '0px' : '10px'}">-->
     <web-layout>
       <v-container>
         <router-view :style="{ 'margin-left': sideNav ? '100px' : '10px' }"></router-view>
@@ -23,6 +20,9 @@
     },
     computed: {
       sideNav: sync('layout/sideNav'),
+    },
+    async created() {
+      this.$store.dispatch('system/isLogin');
     },
   };
 </script>

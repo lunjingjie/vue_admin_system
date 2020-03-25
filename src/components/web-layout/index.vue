@@ -5,7 +5,7 @@
       <web-tool-bar style="z-index: 100;"></web-tool-bar>
     </div>
     <!--content-->
-    <v-content :style="{'margin-left': sideNav ? '260px' : '0px'}">
+    <v-content :style="{'margin-left': sideNav ? '260px' : '0px', 'margin-top': $route.name!=='Login' ? '70px' : '0px'}" style="margin-top: 70px;">
       <router-view></router-view>
     </v-content>
   </v-app>

@@ -2,26 +2,33 @@
   <v-toolbar color="primary"
              dense
              dark
+             style="position: fixed; width: 100%;"
              v-if="$route.name!=='Login' && toolbarOpened">
-    <v-btn icon color=""
+    <v-btn icon
            v-if="this.navItem.children !== undefined"
            @click="collapseMenu">
       <v-icon>menu</v-icon>
     </v-btn>
-    <v-toolbar-title style="cursor: pointer;font-size: 20px;" @click="$router.push('/')">
-      test
+    <v-toolbar-title style="cursor: pointer;font-size: 16px;" @click="$router.push('/tableCrud')">
+      后台管理系统
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <div v-if="$route.name!=='Login'">
-      <v-btn text small v-for="(data, index) in menuItems" :key="`menu${index}`">
-        <span v-if="data.children !== null && data.children.length > 0" @click="updateSideNavItem(data)"
-              class="tool-bar-custom-class">
+      <template v-for="(data, index) in menuItems">
+        <v-btn text small :key="`menu${index}`" v-if="data.children !== undefined && data.children.length > 0"
+               @click="updateSideNavItem(data)">
+        <span class="tool-bar-custom-class">
           {{ data.name }}
         </span>
-        <span v-if="data.children === null" class="tool-bar-custom-class" @click="singleRoute(data)">
+          <v-icon right dark>mdi-menu-down</v-icon>
+        </v-btn>
+        <v-btn text small :key="`menu${index}`" v-if="data.children === undefined"
+               @click="singleRoute(data)">
+          <span class="tool-bar-custom-class">
           {{ data.name }}
         </span>
-      </v-btn>
+        </v-btn>
+      </template>
       <v-menu bottom left>
         <template v-slot:activator="{ on }">
           <v-btn
@@ -43,14 +50,6 @@
         </v-list>
       </v-menu>
     </div>
-    <!--<v-list v-if="data.children.length > 0">
-      <v-list-tile v-for="(item, index) in data.children" :key="`child${index}`">
-        <v-list-tile-title v-text="item.name"
-                           @click="$router.push({ name: item.route })"
-                           class="listTile"
-        ></v-list-tile-title>
-      </v-list-tile>
-    </v-list>-->
   </v-toolbar>
 </template>
 <script>
@@ -62,80 +61,29 @@
       return {
         menuItems: [
           {
-            name: '监管一张图',
-            route: 'buildingResume',
-            icon: 'mdi mdi-map-search',
-            children: [],
-          },
-          {
-            name: '数据导出',
-            route: 'exportSegment',
-            icon: 'mdi mdi-map-search',
-            children: [],
-          },
-          {
-            name: '数据查询',
+            name: '默认页',
             route: '',
-            icon: 'mdi mdi-file-document-box-multiple',
-            children: [
-              // {
-              // name: '用户信息录入',
-              // route: 'workerInput',
-              // children: [],
-              // },
-              {
-                name: '工地基础信息',
-                route: 'buildingData',
-                children: [],
-              },
-              {
-                name: '施工人员基础信息',
-                route: 'workerData',
-                children: [],
-              },
-            ],
-          },
-          {
-            name: '系统管理',
-            route: '',
-            icon: 'mdi mdi-file-table',
+            icon: '',
             children: [
               {
-                name: '基础信息录入管理',
-                route: '',
+                name: '列表增删改查',
+                path: 'tableCrud',
+                icon: '',
+              },
+              {
+                name: '菜单1',
+                path: '',
                 icon: '',
                 children: [
                   {
-                    name: '项目信息录入',
-                    route: 'input',
-                    children: [],
+                    name: '菜单1_1',
+                    path: '',
+                    icon: '',
                   },
                   {
-                    name: '企业信息录入',
-                    route: 'enpInput',
-                    children: [],
-                  },
-                  {
-                    name: '标段信息录入',
-                    route: 'segmentInput',
-                    children: [],
-                  },
-                  {
-                    name: '标段企业信息录入',
-                    route: 'segmentEnterpriseInput',
-                    children: [],
-                  },
-                ],
-              },
-              {
-                name: 'APP管理',
-                route: '',
-                icon: '',
-                children: [
-                  {
-                    name: '版本管理',
-                    route: 'appManage',
-                    children: [],
+                    name: '菜单1_2',
+                    path: '',
+                    icon: '',
                   },
                 ],
               },
@@ -149,6 +97,10 @@
       navItem: sync('layout/navItem'),
       sideNav: sync('layout/sideNav'),
       username: sync('system/username'),
+      // menuItems: sync('system/menu'),
+    },
+    mounted() {
+      // this.menuItems = JSON.parse(window.localStorage.getItem('menu'));
     },
     methods: {
       logout() {

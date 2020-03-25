@@ -2,7 +2,7 @@
 import request from '@/api/request';
 
 const path = {
-  LOGIN: 'wdpAdmin/sys/login',
+  LOGIN: '',
 };
 /**
  * login
