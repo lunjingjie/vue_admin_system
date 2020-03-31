@@ -2,7 +2,6 @@
 import { make } from 'vuex-pathify';
 import dayjs from 'dayjs';
 import axios from '@/api/request';
-import systemApi from '@/api/system';
 
 const state = {
   token: null,

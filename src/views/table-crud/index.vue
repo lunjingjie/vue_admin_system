@@ -1,6 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
-    <page-title>title</page-title>
+    <page-title>{{module.name}}</page-title>
     <search-list>
       <v-row>
         <v-col cols="3" style="padding: 0px !important;">
@@ -30,7 +30,7 @@
           <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
             <template v-slot:activator="{ on }">
               <v-spacer></v-spacer>
-              <v-btn color="primary" dark class="mb-2" v-on="on" @click="addRecord">add Item</v-btn>
+              <v-btn color="primary" dark class="mb-2" v-on="on" @click="addRecord">{{module.addItem}}</v-btn>
             </template>
             <v-card>
               <v-toolbar dark color="primary" dense>
@@ -135,33 +135,39 @@
     mixins: [snackbarMixin],
     data() {
       return {
-        name: '',
-        nameItems: [],
-        valid: true,
-        textRules: [
-          v => !!v || '这是必填项，请输入内容!',
-        ],
+        // 模块名称集合
+        module: {
+          name: 'title',
+          addItem: 'add Item',
+          addTitle: 'new Item',
+          editTitle: 'edit Item',
+        },
+        // 提示框
         snackbarObj: {
           snackbar: false,
           snackbarText: '',
           snackbarSuccess: false,
         },
+        // 筛选条件
+        name: '',
+        nameItems: [],
+        // 校验表单
+        valid: true,
+        textRules: [
+          v => !!v || '这是必填项，请输入内容!',
+        ],
+        // dataTable变量
         headers: [],
         desserts: [],
-        dialog: false,
-        addTitle: 'new Item',
-        editTitle: 'edit Item',
-        editedIndex: -1,
+        dataList: [],
         editedItem: {
           name: '',
           age: '',
           sex: '',
           id: '',
         },
-        screenheight: document.body.clientHeight,
-        dataList: [],
-        riverList: [],
-        typeList: [],
+        // 添加、修改内容模态框
+        dialog: false,
         sexItems: [
           {
             text: 'male',
@@ -172,6 +178,10 @@
             value: 'female',
           },
         ],
+        // 添加、修改标志
+        editedIndex: -1,
+        // 获取屏幕高度
+        screenheight: document.body.clientHeight,
       };
     },
     mounted() {
@@ -180,7 +190,7 @@
     },
     computed: {
       formTitle() {
-        return this.editedIndex === -1 ? this.addTitle : this.editTitle;
+        return this.editedIndex === -1 ? this.module.addTitle : this.module.editTitle;
       },
       filterData() {
         return [
@@ -241,7 +251,6 @@
         };
       },
       async deleteItem(item) {
-        console.log(item);
         // eslint-disable-next-line no-restricted-globals
         const value = confirm('是否删除该记录?');
         if (value) {
