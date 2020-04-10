@@ -7,7 +7,6 @@
           <v-autocomplete
             v-model="name"
             clearable
-            @click:clear="clearSelect"
             :items="nameItems"
             class="mx-4"
             flat
@@ -202,10 +201,11 @@
       },
     },
     watch: {
-      name(val) {
-        if (val !== undefined) {
+      filterData: {
+        handler() {
           this.filterCheck();
-        }
+        },
+        deep: true,
       },
     },
     methods: {
@@ -250,7 +250,7 @@
           this.screenheight = document.body.clientHeight;
         };
       },
-      async deleteItem(item) {
+      async deleteItem() {
         // eslint-disable-next-line no-restricted-globals
         const value = confirm('是否删除该记录?');
         if (value) {
@@ -269,35 +269,30 @@
       async editItem(item) {
         // eslint-disable-next-line no-param-reassign
         this.editedIndex = this.desserts.indexOf(item);
-        this.editedItem = Object.assign({}, item);
-        this.editedItem.relation = [];
+        Object.keys(this.editedItem).forEach((key) => {
+          this.editedItem[key] = item[key];
+        });
+        this.editedItem.id = item.id;
         this.dialog = true;
-      },
-      clearSelect() {
-        this.name = '';
-        this.getAllRecord();
-        this.filterCheck();
       },
       addRecord() {
         this.editedIndex = -1;
-        this.editedItem = {
-          name: '',
-          age: '',
-          sex: '',
-          id: '',
-        };
+        Object.keys(this.editedItem).forEach((key) => {
+          if (key !== 'iconType') {
+            this.editedItem[key] = null;
+          }
+        });
       },
       async save() {
         if (this.$refs.form.validate()) {
+          const params = {};
+          Object.keys(this.editedItem).forEach((key) => {
+            params[key] = this.editedItem[key];
+          });
           if (this.editedIndex > -1) {
             // 校验通过，修改操作
             try {
-              const params = {
-                name: this.editedItem.name,
-                age: this.editedItem.age,
-                sex: this.editedItem.sex,
-                id: this.editedItem.id,
-              };
+              params.id = this.editedItem.id;
               console.log(params);
               // 请求接口
               const data = true;
@@ -314,11 +309,6 @@
           } else {
             // 校验通过，添加操作
             try {
-              const params = {
-                name: this.editedItem.name,
-                age: this.editedItem.age,
-                sex: this.editedItem.sex,
-              };
               console.log(params);
               //  请求接口
               const data = true;

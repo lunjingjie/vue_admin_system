@@ -14,6 +14,14 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <div v-if="$route.name!=='Login'">
+      <!--退出全屏fullscreen-exit-->
+      <v-btn icon>
+        <v-icon dark>mdi-fullscreen</v-icon>
+      </v-btn>
+      <!--黑夜模式brightness-4-->
+      <v-btn icon>
+        <v-icon dark>mdi-brightness-6</v-icon>
+      </v-btn>
       <template v-for="(data, index) in menuItems">
         <v-btn text small :key="`menu${index}`" v-if="data.children !== undefined && data.children.length > 0"
                @click="updateSideNavItem(data)">
